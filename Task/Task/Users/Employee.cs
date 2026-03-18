@@ -1,4 +1,4 @@
-namespace Task.Models;
+namespace Task.Users;
 
 public class Employee : User
 {

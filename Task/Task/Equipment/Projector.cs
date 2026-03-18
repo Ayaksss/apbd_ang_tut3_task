@@ -1,4 +1,4 @@
-namespace Task.Models;
+namespace Task.Equipment;
 
 public class Projector : Equipment
 {

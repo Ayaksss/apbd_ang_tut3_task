@@ -1,4 +1,4 @@
-namespace Task.Models;
+namespace Task.Users;
 
 public abstract class User
 {
