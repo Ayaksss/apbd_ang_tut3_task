@@ -9,8 +9,10 @@ public abstract class Equipment
     public String name{get;set;}
     public bool isAvailable{get;set;}
 
-    protected  Equipment()
+    protected  Equipment(String name)
     {
         Id = next_Id++;
+        this.name = name;
+        this.isAvailable = true;
     }
 }
