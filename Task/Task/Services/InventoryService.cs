@@ -4,7 +4,7 @@ using Task.Equipment;
 
 public class InventoryService
 {
-    List<Equipment> equipments = new List<Equipment>();
+    static List<Equipment> equipments = new List<Equipment>();
 
     public void addEquipment(Equipment equipment)
     {
@@ -24,5 +24,17 @@ public class InventoryService
         }
 
         return availableEquipment;
+    }
+
+    public static Equipment findEquipment(int id)
+    {
+        foreach (Equipment equipment in equipments)
+        {
+            if (equipment.Id == id)
+            {
+                return equipment;
+            }
+        }
+        return null;
     }
 }

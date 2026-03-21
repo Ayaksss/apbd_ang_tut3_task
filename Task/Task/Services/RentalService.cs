@@ -6,8 +6,9 @@ public class RentalService
 {
     List<Rental> rentals = new List<Rental>();
 
-    public void rentEquipment(User user, Equipment equipment)
+    public void rentEquipment(User user, int equipmentId)
     {
+        Equipment equipment = InventoryService.findEquipment(equipmentId);
         if (equipment.isAvailable == true)
         {
             rentals.Add(new Rental(user, equipment));    
