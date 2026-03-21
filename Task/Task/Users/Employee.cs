@@ -9,5 +9,8 @@ public class Employee : User
     {
         this.jobTitle = jobTitle;
         this.employeeNumber = employeeNumber;
+        
+        userType = "Employee";
+        availableRents = 5;
     }
 }

@@ -5,6 +5,8 @@ public abstract class User
     private static int next_Id = 1;
     
     public int Id { get; private set; }
+
+    public int availableRents { set; get; }
     
     public String firstName{get;set;}
     public String lastName{get;set;}
@@ -16,5 +18,6 @@ public abstract class User
         Id = next_Id++;
         this.firstName = firstName;
         this.lastName = lastName;
+        
     }
 }

@@ -28,10 +28,10 @@ public class ConsoleMenu
             switch (choice)
             {
                 case "1":
-                    Console.Write(inventoryService.findAvailableEquipment().Count);
+                    Console.WriteLine("Available equipments: ");
                     foreach (Equipment equipment in inventoryService.findAvailableEquipment())
                     {
-                        Console.WriteLine(equipment);
+                        Console.WriteLine(equipment.name + ", id: " + equipment.Id);
                     }
                     break;
                 case "2":

@@ -11,5 +11,6 @@ public class Student : User
         this.academicYear = academicYear;
         
         userType = "Student";
+        availableRents = 2;
     }
 }
