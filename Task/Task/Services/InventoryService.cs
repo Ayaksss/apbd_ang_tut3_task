@@ -26,6 +26,17 @@ public class InventoryService
         return availableEquipment;
     }
 
+    public void showAllEquipment()
+    {
+        foreach (Equipment equipment in equipments)
+        {
+            if (equipment.isAvailable == true)
+                Console.WriteLine(equipment.name + " is available with id: " + equipment.Id);
+            else
+                Console.WriteLine(equipment.name + " is not available with id: " + equipment.Id);
+        }
+    }
+
     public static Equipment findEquipment(int id)
     {
         foreach (Equipment equipment in equipments)

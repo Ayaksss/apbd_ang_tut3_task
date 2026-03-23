@@ -2,4 +2,4 @@
 
 ConsoleMenu menu = new ConsoleMenu();
 
-menu.main();
+menu.runDemonstration();

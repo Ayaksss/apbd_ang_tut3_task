@@ -8,66 +8,70 @@ public class ConsoleMenu
     InventoryService inventoryService = new InventoryService();
     UserService userService = new UserService();
     RentalService rentalService = new RentalService();
-    FeedDatabaseService feedDatabaseService = new FeedDatabaseService();
     
     
-    public void main()
+   public void runDemonstration()
     {
-        feedDatabaseService.FeedDatabase(userService, inventoryService);
-        while (true)
-        {
-            Console.WriteLine("Welcome to the console menu");
-            Console.WriteLine("1 - Available equipments");
-            Console.WriteLine("2 - Rent equipment");
-            Console.WriteLine("3 - Return equipment");
-            Console.WriteLine("4 - Exit");
-            Console.Write("> ");
-            
-            String choice = Console.ReadLine();
+    
+    
+    Equipment testLaptop = new Laptop("MacBook Pro", "Apple", 16);
+    Equipment testCamera = new Camera("EOS R5", "Canon", 45);
+    Equipment testCamera2 = new Camera("EOS R55", "Canon", 45);
+    
+    
+    inventoryService.addEquipment(testLaptop);
+    inventoryService.addEquipment(testCamera);
+    inventoryService.addEquipment(testCamera2);
 
-            switch (choice)
-            {
-                case "1":
-                    Console.WriteLine("Available equipments: ");
-                    foreach (Equipment equipment in inventoryService.findAvailableEquipment())
-                    {
-                        Console.WriteLine(equipment.name + ", id: " + equipment.Id);
-                    }
-                    break;
-                case "2":
-                    User user;
-                    Console.Write("Who are you, (1) Employee. (2) Student: ");
-                    choice = Console.ReadLine();
-                    Console.Write("First name: ");
-                    String FirstName = Console.ReadLine();
-                    Console.Write("Last name: ");
-                    String LastName = Console.ReadLine();
-                    if (choice == "1")
-                    {
-                        Console.Write("Employee number: ");
-                        int EmployeeNumber = Int32.Parse(Console.ReadLine());
-                        Console.Write("Your job title: ");
-                        String JobTitle = Console.ReadLine();
-                        user = new Employee(FirstName, LastName, EmployeeNumber, JobTitle);
-                    }
-                    else if (choice == "2")
-                    {
-                        Console.Write("Student number: ");
-                        int StudentNumber = Int32.Parse(Console.ReadLine());
-                        Console.Write("Your academic year: ");
-                        int AcademicYear = Int32.Parse(Console.ReadLine());
-                        user = new Student(FirstName, LastName, StudentNumber, AcademicYear);
-                    }
-                    else
-                    {
-                        Console.Write("Wrong choice");
-                    }
-                    break;
-                default:
-                    break;
-                
-            }
-        }
-        
+    
+    int laptopId = testLaptop.Id;
+    int cameraId = testCamera.Id;
+    int cameraId2 = testCamera2.Id;
+
+    
+    Console.WriteLine("\nAdding Users");
+    Student testStudent = new Student("Anna", "Nowak", 10101, 2);
+    Employee testEmployee = new Employee("Jan", "Kowalski", 20202, "IT Support");
+    
+    userService.addUser(testStudent);
+    userService.addUser(testEmployee);
+
+    
+    Console.WriteLine("\nCorrect rental");
+    rentalService.rentEquipment(testStudent, laptopId, DateTime.Parse("2026-03-01"), 5);
+    rentalService.rentEquipment(testStudent, cameraId2, DateTime.Parse("2026-03-10"), 5);
+
+    
+    Console.WriteLine("\nInvalid operation (renting unavailable equipment)");
+    rentalService.rentEquipment(testEmployee, laptopId, DateTime.Parse("2026-03-02"), 3);
+
+    
+    Console.WriteLine("\nReturn completed on time");
+    rentalService.returnItem(laptopId, DateTime.Parse("2026-03-04"));
+
+    
+    Console.WriteLine("\nDelayed return with penalty");
+    rentalService.rentEquipment(testEmployee, cameraId, DateTime.Parse("2026-03-01"), 2);
+    
+    
+    rentalService.returnItem(cameraId, DateTime.Parse("2026-03-10"));
+
+    
+    Console.WriteLine("\nFinal system state report");
+    Console.WriteLine("Currently Available Equipment:");
+    
+    inventoryService.showAllEquipment();
+
+    foreach (Rental rental in rentalService.getActiveRentals())
+    {
+        Console.WriteLine(rental.user.firstName + " " + rental.user.lastName + " is renting " + rental.equipment.name);
+    }
+
+    double totalFee = 0.0;
+    foreach (Rental rental in rentalService.getAllRentals())
+    {
+        totalFee += rental.lateFee;
+    }
+    Console.WriteLine("Total fee: " + totalFee);
     }
 }
